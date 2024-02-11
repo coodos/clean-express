@@ -3,20 +3,32 @@ import { AppDataSource } from "@/infrastructure";
 import { AppInterceptor, ExpressErrorHandler } from "@/interfaces/middleware";
 import { Logger } from "./logger";
 import { appRouter } from "@/interfaces/routers";
+import expressOasGenerator from "express-oas-generator";
+// import docGenerator from "express-openapi-generator";
+
+// const { DocumentBuilder } = docGenerator;
 
 export type AppConfig = {
     port?: number | string;
 };
 
 export class Server {
-    private app: Application;
+    private app;
     private config: AppConfig;
 
     constructor(config: AppConfig) {
         this.config = config;
         this.app = express();
+        expressOasGenerator.handleResponses(this.app, {
+            specOutputPath: "./spec.json",
+            specOutputFileBehavior: "RECREATE",
+            writeIntervalMs: 0,
+            swaggerDocumentOptions: {},
+        });
         this.app.use(AppInterceptor);
+
         this.app.use(express.json());
+
         this.app.use("/api", appRouter);
         this.app.use(ExpressErrorHandler);
     }
@@ -34,6 +46,7 @@ export class Server {
         const port = this.config.port ?? 1209;
         this.connectDatabase();
         this.app.listen(port, () => {
+            expressOasGenerator.handleRequests();
             Logger.info("Server is running on port " + port);
         });
     }
