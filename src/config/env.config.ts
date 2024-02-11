@@ -7,4 +7,4 @@ const __dirname = path.dirname(__filename);
 
 dotenv.config({ path: path.resolve(__dirname, "../../.env") });
 
-export const { PORT, DATABASE_URL, ENV } = process.env;
+export const { PORT, DATABASE_URL, ENV, JWT_SECRET } = process.env;

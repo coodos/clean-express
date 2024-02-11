@@ -7,8 +7,8 @@ export function AppInterceptor(
     next: NextFunction
 ) {
     const transmitJson = res.json;
-    res.json = function (body) {
-        if (res.locals.responseDTO) {
+    res.json = function (body: Record<string, any>) {
+        if (res.locals.responseDTO && !Object.keys(body).includes("error")) {
             body = plainToInstance(res.locals.responseDTO, body, {
                 excludeExtraneousValues: true,
             });

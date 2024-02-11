@@ -2,6 +2,7 @@ import express, { Application } from "express";
 import { AppDataSource } from "@/infrastructure";
 import { AppInterceptor, ExpressErrorHandler } from "@/interfaces/middleware";
 import { Logger } from "./logger";
+import { appRouter } from "@/interfaces/routers";
 
 export type AppConfig = {
     port?: number | string;
@@ -16,6 +17,7 @@ export class Server {
         this.app = express();
         this.app.use(AppInterceptor);
         this.app.use(express.json());
+        this.app.use("/api", appRouter);
         this.app.use(ExpressErrorHandler);
     }
 
