@@ -5,7 +5,6 @@ import { Logger } from "./logger";
 
 export type AppConfig = {
     port?: number | string;
-    databaseUrl: string;
 };
 
 export class Server {
