@@ -1,4 +1,5 @@
-import { BaseEntity, Column, Entity } from "typeorm";
+import { Column, Entity } from "typeorm";
+import { BaseEntity } from "@/domain/entities";
 
 @Entity()
 export class User extends BaseEntity {
