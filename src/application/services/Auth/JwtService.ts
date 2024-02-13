@@ -22,10 +22,17 @@ export class JwtService {
         return token;
     }
 
-    exchangeRefreshTokenForAsync(refreshToken: string) {
+    exchangeRefreshTokenForAccess(refreshToken: string) {
         const decoded = jwt.verify(refreshToken, this.secret) as {
             userId: number;
         };
         return this.createAccessToken(decoded.userId);
+    }
+
+    decodeToken(token: string) {
+        const decoded = jwt.verify(token, this.secret) as {
+            userId: number;
+        };
+        return decoded;
     }
 }

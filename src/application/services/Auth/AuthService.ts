@@ -30,4 +30,10 @@ export class AuthService {
         const response = { ...user, refreshToken, accessToken };
         return response;
     }
+
+    exchangeRefreshTokenForAccessToken(refreshToken: string) {
+        const accessToken =
+            this.jwtService.exchangeRefreshTokenForAccess(refreshToken);
+        return accessToken;
+    }
 }

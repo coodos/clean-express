@@ -19,4 +19,15 @@ export class UsersController {
         const loginResponse = await this.authService.login({ email, password });
         return res.status(200).json(loginResponse);
     };
+
+    getCurrentUser = async (req: Request, res: Response) => {
+        res.json(req.user);
+    };
+
+    refreshAccessToken = async (req: Request, res: Response) => {
+        const accessToken = this.authService.exchangeRefreshTokenForAccessToken(
+            req.body.refreshToken
+        );
+        res.json({ accessToken });
+    };
 }

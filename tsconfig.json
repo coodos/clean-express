@@ -12,6 +12,10 @@
         "esModuleInterop": true,
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
-        "sourceMap": false
+        "sourceMap": false,
+        "typeRoots": ["./node_modules/@types", "./src/@types"]
+    },
+    "ts-node": {
+        "files": true
     }
 }
